@@ -57,7 +57,7 @@ void manGetHostState(managerLink * manLink);
 void manDisplayHostState(char buffer[]);
 void manDisplayHosts(int currhost, int maxHosts); 
 int manChangeHost(int maxHosts);
-int manChangeLink(void); //changes link to socket or pipe
+int manChangeLink(); //changes link to socket or pipe
 
 /* 
  * Many of the commands by the user requires the manager to
@@ -449,7 +449,7 @@ return newnumber;
  * 0 is a pipe
  * 1 is a socket
  */
-int manChangeLink(void) {
+int manChangeLink() {
 int linknum;
 
 do {
@@ -458,7 +458,7 @@ do {
    if(linknum == 0) break;  //pipe
    else if(linknum == 1) break; //socket
    else printf("Number entered is invalid!, tray again\n\n");
-} while(1)
+} while(1);
 
 return linknum;
 }
@@ -516,7 +516,7 @@ while(1) {
    else if (cmd == 'c') 
       currhost = manChangeHost(manLinkArray->numlinks);
    else if (cmd == 'l')  { //link type
-      linktype = manChangeLink(void);
+      linktype = manChangeLink();
    }
    else printf("***Invalid command, you entered %c\n", cmd);
 }
