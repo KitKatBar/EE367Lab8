@@ -59,7 +59,7 @@ int linkClear(LinkInfo * link)
         close(link->uniPipeInfo.fd[1]);
     }
    //new stuff
-   else if (link-LinkType == SOCKET) {
+   else if (link->linkType == SOCKET) {
         //socket stuff
     }
     return -1;
