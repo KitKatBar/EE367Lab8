@@ -41,6 +41,13 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <errno.h>
 
 #include "utilities.h"
 #include "main.h"
@@ -53,6 +60,7 @@
 int linkClear(LinkInfo * link)
 {
     int flag;
+    struct sockaddr_in Socket;
     
     if (link->linkType == UNIPIPE) {
         close(link->uniPipeInfo.fd[0]);
@@ -60,7 +68,7 @@ int linkClear(LinkInfo * link)
     }
    //new stuff
    else if (link->linkType == SOCKET) {
-        //socket stuff
+        close(flag);
     }
     return -1;
 }
@@ -85,7 +93,10 @@ int linkCreate(LinkInfo * link)
         return 0;
     }
     else if (link->linkType == SOCKET) {
-	//socket stuff
+	flag = socket(AF_INET, SOCK_STREAM, 0);
+	Socket.sin_family = AF_INET;
+	Socket.sin_addr.s_addr = INADDR_ANY;
+	Socket.sin_port = htons(1000);
     }
     else {
         printf("Link not created:  invalid type\n");
