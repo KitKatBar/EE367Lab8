@@ -60,7 +60,7 @@
 int linkClear(LinkInfo * link)
 {
     int flag;
-    struct sockaddr_in Socket;
+    
     
     if (link->linkType == UNIPIPE) {
         close(link->uniPipeInfo.fd[0]);
@@ -77,6 +77,7 @@ int linkClear(LinkInfo * link)
 int linkCreate(LinkInfo * link)
 {
     int flag;
+    struct sockaddr_in Socket;
     
     if (link->linkType == UNIPIPE) {
         if (pipe(link->uniPipeInfo.fd) < 0) {
