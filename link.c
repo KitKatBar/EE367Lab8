@@ -166,7 +166,9 @@ int linkReceive(LinkInfo * link, packetBuffer * pbuff)
             pbuff->new=1;
         } 
 	 else if (link->linkType == SOCKET) {
-		//socket stuff
+		FILE *fw = fopen(link->uniPipeInfo.fd[PIPEWRITE], "w");
+		fprintf(fw, pbuff->dstaddr);
+		fclose(fw);
 	}
 	 else {
 
@@ -255,7 +257,12 @@ int linkSend(LinkInfo * link, packetBuffer * pbuff)
         write(link->uniPipeInfo.fd[PIPEWRITE],sendbuff,strlen(sendbuff));
     }
    if (link->linkType==SOCKET) {
-	//socket stuff
+	FILE *fs = fopen(link->uniPipeInfo.fd[PIPEREAD], "r");
+	int fd[2], n;
+	n = read(fd[0], sendbuff, 1000);
+	send(pbuff->srcaddr, sendbuff, strlen(sendbuff), 0);
+	close(fd[0]);
+	fclose(fs);
     }
  
     /* Used for DEBUG -- trace packets being sent */
